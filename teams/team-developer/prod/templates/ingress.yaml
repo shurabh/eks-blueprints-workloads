@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: riker-ingress
-  # namespace is specified as namespace destination in env/{dev,test,prod}/team-riker.yaml
+  name: developer-ingress
+  # namespace is specified as namespace destination in env/{dev,test,prod}/team-developer.yaml
   labels:
     app: guestbook-ui
     {{- toYaml .Values.labels | nindent 4 }}
@@ -13,7 +13,7 @@ metadata:
     #rewrite does not exist yet in ALB
     #https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/1571
     #so commenting grouping feature
-    #alb.ingress.kubernetes.io/group.name: riker
+    #alb.ingress.kubernetes.io/group.name: developer
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
   {{ if .Values.spec.ingress.host }}
@@ -22,7 +22,7 @@ metadata:
   {{ else }}
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
   {{ end }}
-    alb.ingress.kubernetes.io/tags: Environment={{ .Values.labels.env }},Team=Riker
+    alb.ingress.kubernetes.io/tags: Environment={{ .Values.labels.env }},Team=developer
 {{ end }}
   {{ if .Values.spec.ingress.host }}
     external-dns.alpha.kubernetes.io/set-identifier: {{ .Values.spec.clusterName }}

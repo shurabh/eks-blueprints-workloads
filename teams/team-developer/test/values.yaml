@@ -1,6 +1,6 @@
 labels:
   env: test
-  team: riker
+  team: developer
 spec:
   env:
   ingress:
